@@ -1,0 +1,16 @@
+/* index.css */
+
+.container {
+  max-width: 800px;
+  margin: 10px ;
+}
+
+.alert {
+  margin-bottom: 16px;
+  padding: 12px;
+  border-radius: 4px;
+}
+
+.row {
+  margin-bottom: 1.5rem;
+}
