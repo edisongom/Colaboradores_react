@@ -6,60 +6,64 @@ import Alert from './assets/Alert';
 import { BaseColaboradores } from './assets/BaseColaboradores';
 
 const App = () => {
-  const [colaboradores, setColaboradores] = useState(BaseColaboradores);
-  const [lastId, setLastId] = useState(BaseColaboradores.length);
+  const [colaboradores, setColaboradores] = useState([]);
+  const [colaboradoresFiltrados, setColaboradoresFiltrados] = useState([]);
   const [mensaje, setMensaje] = useState('');
   const [tipoMensaje, setTipoMensaje] = useState('');
+  const [lastId, setLastId] = useState(0);
+
+  useEffect(() => {
+    setColaboradores(BaseColaboradores);
+    setColaboradoresFiltrados(BaseColaboradores);
+    setLastId(BaseColaboradores.length);
+  }, []);
 
   const agregarColaborador = (nuevoColaborador) => {
     const id = lastId + 1;
     const colaboradorConId = { ...nuevoColaborador, id };
     setColaboradores([...colaboradores, colaboradorConId]);
+    setColaboradoresFiltrados([...colaboradoresFiltrados, colaboradorConId]);
     setLastId(id);
-    mostrarMensaje('Colaborador agregado exitosamente', 'success');
+    setMensaje('Colaborador agregado exitosamente');
+    setTipoMensaje('success');
   };
 
   const eliminarColaborador = (id) => {
     const colaboradoresActualizados = colaboradores.filter(
       (colaborador) => colaborador.id !== id
     );
+    const colaboradoresFiltradosActualizados = colaboradoresFiltrados.filter(
+      (colaborador) => colaborador.id !== id
+    );
     setColaboradores(colaboradoresActualizados);
+    setColaboradoresFiltrados(colaboradoresFiltradosActualizados);
+    setMensaje('Colaborador eliminado exitosamente');
+    setTipoMensaje('success');
   };
 
-  const buscarColaboradores = (termino) => {
-    const colaboradoresFiltrados = colaboradores.filter((colaborador) => {
-      return (
-        colaborador.nombre.toLowerCase().includes(termino.toLowerCase()) ||
-        colaborador.correo.toLowerCase().includes(termino.toLowerCase()) ||
-        colaborador.edad.toLowerCase().includes(termino.toLowerCase()) ||
-        colaborador.cargo.toLowerCase().includes(termino.toLowerCase()) ||
-        colaborador.telefono.toLowerCase().includes(termino.toLowerCase())
-      );
-    });
-    setColaboradores(colaboradoresFiltrados);
-  };
+  const buscarColaborador = (textoBusqueda) => {
+    const colaboradoresFiltrados = colaboradores.filter((colaborador) =>
+      Object.values(colaborador).some((valor) =>
+        valor.toString().toLowerCase().includes(textoBusqueda.toLowerCase())
+      )
+    );
 
-  const mostrarMensaje = (mensaje, tipo) => {
-    setMensaje(mensaje);
-    setTipoMensaje(tipo);
-    setTimeout(() => {
-      setMensaje('');
-      setTipoMensaje('');
-    }, 3000);
+    setColaboradoresFiltrados(colaboradoresFiltrados);
   };
 
   return (
-    <div className="container">
-      <h1>Listado de Colaboradores</h1>
+    <div className="container mt-4">
       {mensaje && <Alert mensaje={mensaje} tipo={tipoMensaje} />}
       <div className="row">
         <div className="col-md-4">
+          <h2>Agregar Colaborador</h2>
           <Formulario agregarColaborador={agregarColaborador} />
         </div>
-        <div className="col-md-8">
-          <Buscador buscarColaboradores={buscarColaboradores} />
+        <div className="Buscador col-md-8">
+          <h2>Listado de Colaboradores</h2>
+          <Buscador buscarColaborador={buscarColaborador} />
           <Listado
-            colaboradores={colaboradores}
+            colaboradores={colaboradoresFiltrados}
             eliminarColaborador={eliminarColaborador}
           />
         </div>
