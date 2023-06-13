@@ -82,7 +82,10 @@ const Formulario = ({ agregarColaborador }) => {
           onChange={(e) => setTelefono(e.target.value)}
         />
       </div>
-      
+      {error && <div className="alert alert-danger">{error}</div>}
+      <button type="submit" className="btn btn-primary">
+        Agregar colaborador
+      </button>
     </form>
   );
 };
