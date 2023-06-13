@@ -35,7 +35,56 @@ const Formulario = ({ agregarColaborador }) => {
     setError('');
   };
 
-
+  return (
+    <form onSubmit={handleSubmit}>
+      <div className="form-group">
+        <label>Nombre:</label>
+        <input
+          type="text"
+          className="form-control"
+          value={nombre}
+          onChange={(e) => setNombre(e.target.value)}
+        />
+      </div>
+      <div className="form-group">
+        <label>Correo:</label>
+        <input
+          type="email"
+          className="form-control"
+          value={correo}
+          onChange={(e) => setCorreo(e.target.value)}
+        />
+      </div>
+      <div className="form-group">
+        <label>Edad:</label>
+        <input
+          type="number"
+          className="form-control"
+          value={edad}
+          onChange={(e) => setEdad(e.target.value)}
+        />
+      </div>
+      <div className="form-group">
+        <label>Cargo:</label>
+        <input
+          type="text"
+          className="form-control"
+          value={cargo}
+          onChange={(e) => setCargo(e.target.value)}
+        />
+      </div>
+      <div className="form-group">
+        <label>Teléfono:</label>
+        <input
+          type="text"
+          className="form-control"
+          value={telefono}
+          onChange={(e) => setTelefono(e.target.value)}
+        />
+      </div>
+      
+    </form>
+  );
 };
 
 export default Formulario;
