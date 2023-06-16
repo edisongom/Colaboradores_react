@@ -55,12 +55,12 @@ const App = () => {
     <div className="container mt-4">
       {mensaje && <Alert mensaje={mensaje} tipo={tipoMensaje} />}
       <div className="row">
-        <div className="col-md-4">
-          <h2>Agregar Colaborador</h2>
+        <div className="col-md-3">
+          <h4>Agregar Colaborador</h4>
           <Formulario agregarColaborador={agregarColaborador} />
         </div>
-        <div className="Buscador col-md-8">
-          <h2>Listado de Colaboradores</h2>
+        <div className="col-md-9">
+          <h4>Listado de Colaboradores</h4>
           <Buscador buscarColaborador={buscarColaborador} />
           <Listado
             colaboradores={colaboradoresFiltrados}
@@ -70,6 +70,8 @@ const App = () => {
       </div>
     </div>
   );
+  
+  
 };
 
 export default App;

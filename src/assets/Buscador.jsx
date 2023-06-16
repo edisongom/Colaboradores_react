@@ -11,7 +11,7 @@ const Buscador = ({ buscarColaborador }) => {
   return (
     <input
       type="text"
-      className="form-control"
+      className="form-control input-buscador"
       placeholder="Buscar colaborador"
       value={busqueda}
       onChange={handleChange}
